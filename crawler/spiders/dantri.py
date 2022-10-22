@@ -37,6 +37,8 @@ class DantriSpider(scrapy.Spider):
         category = response._url
         for article in response.xpath('//article'):
 
+            time = "";
+
             urlCrawl = "https://dantri.com.vn" + article.xpath('div/a/@href').get()
 
             page = requests.get(urlCrawl)
@@ -44,6 +46,12 @@ class DantriSpider(scrapy.Spider):
             soup = BeautifulSoup(page.content, "html.parser")
 
             job_elements = soup.find_all("div", {"class": "singular-content"})
+
+            job_elementsTime = soup.find("time", {"class": "author-time"})
+
+            job_elementsTime.has_attr("datetime"):
+                time = job_elementsTime.attrs["datetime"]
+
 
             yield {
                 'category': response.xpath('//main/ol/li/h1/a/text()')[0].get(),
