@@ -25,7 +25,7 @@ def get_urls(pages=30):
 
 
 class DantriSpider(scrapy.Spider):
-    name = 'vnexpress'
+    name = 'dantri'
     custom_settings = {
         'FEED_FORMAT': 'json',
         'FEED_URI': 'data/dantri.json',
