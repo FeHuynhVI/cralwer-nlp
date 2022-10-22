@@ -37,7 +37,7 @@ class DantriSpider(scrapy.Spider):
         category = response._url
         for article in response.xpath('//article'):
 
-            urlCrawl = article.xpath('div/a/@href').get()
+            urlCrawl = "https://dantri.com.vn" + article.xpath('div/a/@href').get()
 
             page = requests.get(urlCrawl)
 
