@@ -49,7 +49,7 @@ class DantriSpider(scrapy.Spider):
 
             job_elementsTime = soup.find("time", {"class": "author-time"})
 
-            job_elementsTime.has_attr("datetime"):
+            if job_elementsTime.has_attr("datetime"):
                 time = job_elementsTime.attrs["datetime"]
 
 
