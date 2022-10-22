@@ -57,7 +57,8 @@ class DantriSpider(scrapy.Spider):
                 'category': response.xpath('//main/ol/li/h1/a/text()')[0].get(),
                 'url': urlCrawl,
                 'title': article.xpath('div/h3/a/text()').get(),
-                'text': article.xpath('div/div/a/text()').get(),
+                'time': time
+                'summary': article.xpath('div/div/a/text()').get(),
                 'content': ''.join([td.get_text() for job_element in job_elements for td in job_element.find_all("p")])
             }
 
