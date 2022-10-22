@@ -46,7 +46,7 @@ class DantriSpider(scrapy.Spider):
             job_elements = soup.find_all("article")
 
             yield {
-                'category': response.xpath('//main/ol/li[contains(@class, "deactive")]/h1/a/@title').re_first(r'Name:\s*(.*)'),
+                'category': response.xpath('//main/ol/li/h1/a/@title').re_first(r'Name:\s*(.*)'),
                 'url': urlCrawl,
                 'title': article.xpath('div/h3/a/text()').get(),
                 'text': article.xpath('div/div/a/text()').get()
