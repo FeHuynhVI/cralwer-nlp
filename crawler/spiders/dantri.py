@@ -10,15 +10,15 @@ def get_urls(pages=30):
     """
     root_urls = [
         "https://dantri.com.vn/",
-        "https://dantri.com.vn/giao-duc-huong-nghiep/khuyen-hoc.htm",
-        "https://dantri.com.vn/giao-duc-huong-nghiep/giao-duc-nghe-nghiep.htm"
+        "https://dantri.com.vn/giao-duc-huong-nghiep/khuyen-hoc",
+        "https://dantri.com.vn/giao-duc-huong-nghiep/giao-duc-nghe-nghiep"
     ]
 
     urls = []
     for root_url in root_urls:
         urls.append(root_url)
         for page in range(1, pages, 1):
-            urls.append(root_url + f"-p{page}")
+            urls.append(root_url + f"trang-{page}.htm")
 
     print(len(urls))
     return urls
