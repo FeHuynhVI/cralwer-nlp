@@ -50,8 +50,6 @@ class DantriSpider(scrapy.Spider):
             yield {
                 'category': category,
                 'url': urlCrawl,
-                'title': article.xpath('div/a/@title').get(),
-                'text': article.xpath('p/a/text()').get(),
-                'content': ''.join([td.get_text() for job_element in job_elements for td in job_element.find_all("p", class_="Normal")])
+                'title': article.xpath("div/a[@class='article-title']").get(),
             }
 
