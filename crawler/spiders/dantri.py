@@ -41,9 +41,13 @@ class DantriSpider(scrapy.Spider):
 
             urlCrawl = "https://dantri.com.vn" + article.xpath('div/a/@href').get()
 
+            if urlCrawl == None:
+                continue
+
             page = requests.get(urlCrawl)
 
             soup = BeautifulSoup(page.content, "html.parser")
+
 
             job_elements = soup.find_all("div", {"class": "singular-content"})
 
@@ -57,7 +61,7 @@ class DantriSpider(scrapy.Spider):
                 'category': response.xpath('//main/ol/li/h1/a/text()')[0].get(),
                 'url': urlCrawl,
                 'title': article.xpath('div/h3/a/text()').get(),
-                'time': time
+                'time': time,
                 'summary': article.xpath('div/div/a/text()').get(),
                 'content': ''.join([td.get_text() for job_element in job_elements for td in job_element.find_all("p")])
             }
