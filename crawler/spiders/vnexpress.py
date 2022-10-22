@@ -40,6 +40,9 @@ class VnexpressSpider(scrapy.Spider):
 
             urlCrawl = article.xpath('div/a/@href').get()
 
+            if urlCrawl == None:
+                continue
+
             page = requests.get(urlCrawl)
 
             soup = BeautifulSoup(page.content, "html.parser")

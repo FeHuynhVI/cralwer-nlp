@@ -48,7 +48,6 @@ class DantriSpider(scrapy.Spider):
 
             soup = BeautifulSoup(page.content, "html.parser")
 
-
             job_elements = soup.find_all("div", {"class": "singular-content"})
 
             job_elementsTime = soup.find("time", {"class": "author-time"})
