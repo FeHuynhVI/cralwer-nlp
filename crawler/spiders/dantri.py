@@ -9,7 +9,11 @@ def get_urls(pages=30):
     """Get urls for dantri categories. Each category may span hundreds of pages.    
     """
     root_urls = [
+        "https://dantri.com.vn/giao-duc-huong-nghiep/du-hoc",
+        "https://dantri.com.vn/giao-duc-huong-nghiep/tuyen-sinh",
         "https://dantri.com.vn/giao-duc-huong-nghiep/khuyen-hoc",
+        "https://dantri.com.vn/giao-duc-huong-nghiep/guong-sang",
+        "https://dantri.com.vn/giao-duc-huong-nghiep/goc-phu-huynh",
         "https://dantri.com.vn/giao-duc-huong-nghiep/giao-duc-nghe-nghiep"
     ]
 
@@ -24,7 +28,9 @@ def get_urls(pages=30):
 
 
 class DantriSpider(scrapy.Spider):
+
     name = 'dantri'
+
     custom_settings = {
         'FEED_FORMAT': 'json',
         'FEED_URI': 'data/dantri.json',
@@ -33,6 +39,7 @@ class DantriSpider(scrapy.Spider):
     }
 
     start_urls = get_urls(pages=30)
+
     def parse(self, response):
         category = response._url
         for article in response.xpath('//article'):
@@ -52,7 +59,10 @@ class DantriSpider(scrapy.Spider):
 
             job_elementsTime = soup.find("time", {"class": "author-time"})
 
+            job_elementsComment= soup.find_all("span", {"class": "comment-text"})
+
             job_elementsContent = soup.find_all("div", {"class": "singular-content"})
+            
 
             if job_elementsTime.has_attr("datetime"):
                 time = job_elementsTime.attrs["datetime"]
@@ -63,7 +73,8 @@ class DantriSpider(scrapy.Spider):
                 'category': response.xpath('//main/ol/li/h1/a/text()')[0].get(),
                 'title': article.xpath('div/h3[@class="article-title"]/a/text()').get(),
                 'summary': article.xpath('div/div[@class="article-excerpt"]/a/text()').get(),
-                'content': ''.join([td.get_text() for content in job_elementsContent for td in content.find_all("p")])
+                'content': ''.join([td.get_text() for content in job_elementsContent for td in content.find_all("p")]),
+                'comment': job_elementsComment
             }
 
 
