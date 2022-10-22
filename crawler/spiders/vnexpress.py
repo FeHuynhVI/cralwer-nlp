@@ -40,7 +40,7 @@ class VnexpressSpider(scrapy.Spider):
 
             time = "";
 
-            getUrl = article.xpath('div/h3[@class="article-title"]/a/@href').get();
+            getUrl = article.xpath('div/a/@href').get()
             
             if getUrl == None:
                 continue

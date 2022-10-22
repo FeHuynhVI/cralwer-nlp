@@ -39,7 +39,7 @@ class DantriSpider(scrapy.Spider):
 
             time = "";
 
-            getUrl = article.xpath('div/a/@href').get();
+            getUrl = article.xpath('div/h3[@class="article-title"]/a/@href').get();
 
             if getUrl == None:
                 continue
@@ -61,8 +61,8 @@ class DantriSpider(scrapy.Spider):
                 'time': time,
                 'url': urlCrawl,
                 'category': response.xpath('//main/ol/li/h1/a/text()')[0].get(),
-                'title': article.xpath('div/h3/a/text()').get(),
-                'summary': article.xpath('div/div/a/text()').get(),
+                'title': article.xpath('div/h3[@class="article-title"]/a/text()').get(),
+                'summary': article.xpath('div/div[@class="article-excerpt"]/a/text()').get(),
                 'content': ''.join([td.get_text() for content in job_elementsContent for td in content.find_all("p")])
             }
 
