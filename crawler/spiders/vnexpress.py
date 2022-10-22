@@ -9,8 +9,12 @@ def get_urls(pages=30):
     """Get urls for vnexpress categories. Each category may span hundreds of pages.    
     """
     root_urls = [
+        "https://vnexpress.net/giao-duc/du-hoc",
+        "https://vnexpress.net/giao-duc/tuyen-sinh",
+        "https://vnexpress.net/giao-duc/tin-tuc",
         "https://vnexpress.net/giao-duc/chan-dung",
-        "https://vnexpress.net/giao-duc/tin-tuc"
+        "https://vnexpress.net/giao-duc/giao-duc-40",
+        "https://vnexpress.net/giao-duc/hoc-tieng-anh",
     ]
 
     urls = []
@@ -24,7 +28,9 @@ def get_urls(pages=30):
 
 
 class VnexpressSpider(scrapy.Spider):
+
     name = 'vnexpress'
+
     custom_settings = {
         'FEED_FORMAT': 'json',
         'FEED_URI': 'data/vnexpress.json',
@@ -51,7 +57,13 @@ class VnexpressSpider(scrapy.Spider):
 
             job_elementsContent = soup.find_all("article")
 
+            job_elementsTime = soup.find("span", {"class": "date"})
+
+            if job_elementsTime.has_attr("datetime"):
+                time = job_elementsTime.attrs["datetime"]
+
             yield {
+                'time': time,
                 'url': urlCrawl,
                 'category': category,
                 'title': article.xpath('div/a/@title').get(),
