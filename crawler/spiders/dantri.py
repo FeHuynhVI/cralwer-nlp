@@ -43,13 +43,14 @@ class DantriSpider(scrapy.Spider):
 
             soup = BeautifulSoup(page.content, "html.parser")
 
-            job_elements = soup.find_all("article")
+            job_elements = soup.find_all("div", {"class": "singular-content"})
 
             yield {
                 'category': response.xpath('//main/ol/li/h1/a/text()')[0].get(),
                 'url': urlCrawl,
                 'title': article.xpath('div/h3/a/text()').get(),
-                'text': article.xpath('div/div/a/text()').get()
+                'text': article.xpath('div/div/a/text()').get(),
+                'content': ''.join([td.get_text() for job_element in job_elements for td in job_element.find_all("p")])
             }
 
 
