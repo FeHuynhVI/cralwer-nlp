@@ -9,7 +9,6 @@ def get_urls(pages=30):
     """Get urls for vnexpress categories. Each category may span hundreds of pages.    
     """
     root_urls = [
-        "https://vnexpress.net/giao-duc",
         "https://vnexpress.net/giao-duc/chan-dung",
         "https://vnexpress.net/giao-duc/tin-tuc"
     ]
@@ -50,6 +49,8 @@ class VnexpressSpider(scrapy.Spider):
             yield {
                 'category': category,
                 'url': urlCrawl,
-                'title': article.xpath('div/h3/a/text()').get(),
-                'text': article.xpath('div/div/a/text()').get()
+                'title': article.xpath('div/a/@title').get(),
+                'text': article.xpath('p/a/text()').get(),
+                'content': ''.join([td.get_text() for job_element in job_elements for td in job_element.find_all("p", class_="Normal")])
+            }
 

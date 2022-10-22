@@ -33,7 +33,6 @@ class DantriSpider(scrapy.Spider):
     }
 
     start_urls = get_urls(pages=30)
-
     def parse(self, response):
         category = response._url
         for article in response.xpath('//article'):
@@ -49,6 +48,8 @@ class DantriSpider(scrapy.Spider):
             yield {
                 'category': category,
                 'url': urlCrawl,
-                'title': article.xpath("div/a[@class='article-title']").get(),
+                'title': article.xpath('div/h3/a/text()').get(),
+                'text': article.xpath('div/div/a/text()').get()
             }
+
 
