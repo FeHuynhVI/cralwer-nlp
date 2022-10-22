@@ -17,7 +17,7 @@ def get_urls(pages=30):
     for root_url in root_urls:
         urls.append(root_url)
         for page in range(1, pages, 1):
-            urls.append(root_url + f"trang-{page}.htm")
+            urls.append(root_url + f"/trang-{page}.htm")
 
     print(len(urls))
     return urls
