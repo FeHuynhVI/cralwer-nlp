@@ -6,12 +6,12 @@ import requests
 from bs4 import BeautifulSoup 
 
 def get_urls(pages=30):
-    """Get urls for vnexpress categories. Each category may span hundreds of pages.    
+    """Get urls for dantri categories. Each category may span hundreds of pages.    
     """
     root_urls = [
-        "https://vnexpress.net/giao-duc",
-        "https://vnexpress.net/giao-duc/chan-dung",
-        "https://vnexpress.net/giao-duc/tin-tuc"
+        "https://dantri.com.vn/",
+        "https://dantri.com.vn/giao-duc-huong-nghiep/khuyen-hoc.htm",
+        "https://dantri.com.vn/giao-duc-huong-nghiep/giao-duc-nghe-nghiep.htm"
     ]
 
     urls = []
@@ -24,11 +24,11 @@ def get_urls(pages=30):
     return urls
 
 
-class VnexpressSpider(scrapy.Spider):
+class DantriSpider(scrapy.Spider):
     name = 'vnexpress'
     custom_settings = {
         'FEED_FORMAT': 'json',
-        'FEED_URI': 'data/vnexpress.json',
+        'FEED_URI': 'data/dantri.json',
         'FEED_EXPORT_ENCODING': 'utf-8',
         'FEED_EXPORT_INDENT': 4,
     }
