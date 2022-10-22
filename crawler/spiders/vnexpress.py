@@ -38,22 +38,24 @@ class VnexpressSpider(scrapy.Spider):
         category = response._url
         for article in response.xpath('//article'):
 
-            urlCrawl = article.xpath('div/a/@href').get()
+            time = "";
 
-            if urlCrawl == None:
+            getUrl = article.xpath('div/h3[@class="article-title"]/a/@href').get();
+            
+            if getUrl == None:
                 continue
 
-            page = requests.get(urlCrawl)
+            page = requests.get(getUrl)
 
             soup = BeautifulSoup(page.content, "html.parser")
 
-            job_elements = soup.find_all("article")
+            job_elementsContent = soup.find_all("article")
 
             yield {
-                'category': category,
                 'url': urlCrawl,
+                'category': category,
                 'title': article.xpath('div/a/@title').get(),
                 'summary': article.xpath('p/a/text()').get(),
-                'content': ''.join([td.get_text() for job_element in job_elements for td in job_element.find_all("p", class_="Normal")])
+                'content': ''.join([td.get_text() for content in job_elementsContent for td in content.find_all("p", class_="Normal")])
             }
 

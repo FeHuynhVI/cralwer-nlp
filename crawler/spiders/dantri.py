@@ -39,30 +39,31 @@ class DantriSpider(scrapy.Spider):
 
             time = "";
 
-            urlCrawl = "https://dantri.com.vn" + article.xpath('div/a/@href').get()
+            getUrl = article.xpath('div/a/@href').get();
 
-            if urlCrawl == None:
+            if getUrl == None:
                 continue
+
+            urlCrawl = "https://dantri.com.vn" + getUrl
 
             page = requests.get(urlCrawl)
 
             soup = BeautifulSoup(page.content, "html.parser")
 
-            job_elements = soup.find_all("div", {"class": "singular-content"})
-
             job_elementsTime = soup.find("time", {"class": "author-time"})
+
+            job_elementsContent = soup.find_all("div", {"class": "singular-content"})
 
             if job_elementsTime.has_attr("datetime"):
                 time = job_elementsTime.attrs["datetime"]
 
-
             yield {
-                'category': response.xpath('//main/ol/li/h1/a/text()')[0].get(),
-                'url': urlCrawl,
-                'title': article.xpath('div/h3/a/text()').get(),
                 'time': time,
+                'url': urlCrawl,
+                'category': response.xpath('//main/ol/li/h1/a/text()')[0].get(),
+                'title': article.xpath('div/h3/a/text()').get(),
                 'summary': article.xpath('div/div/a/text()').get(),
-                'content': ''.join([td.get_text() for job_element in job_elements for td in job_element.find_all("p")])
+                'content': ''.join([td.get_text() for content in job_elementsContent for td in content.find_all("p")])
             }
 
 
