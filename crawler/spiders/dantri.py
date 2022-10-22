@@ -46,6 +46,8 @@ class DantriSpider(scrapy.Spider):
 
             time = "";
 
+            category = response.xpath('//main/ol/li/h1/a/text()')
+
             getUrl = article.xpath('div/h3[@class="article-title"]/a/@href').get();
 
             if getUrl == None:
@@ -62,7 +64,16 @@ class DantriSpider(scrapy.Spider):
             job_elementsComment= soup.find_all("span", {"class": "comment-text"})
 
             job_elementsContent = soup.find_all("div", {"class": "singular-content"})
-            
+
+
+            if category != None and len(category) > 0:
+                category = category[0].get()
+            else:
+                category = response.xpath('//main/div/div/h1[@class="title-subpage"]/a/text()')
+                if category == None:
+                    category = ""
+                else:
+                    category = category[0].get() 
 
             if job_elementsTime.has_attr("datetime"):
                 time = job_elementsTime.attrs["datetime"]
@@ -70,7 +81,7 @@ class DantriSpider(scrapy.Spider):
             yield {
                 'time': time,
                 'url': urlCrawl,
-                'category': response.xpath('//main/ol/li/h1/a/text()')[0].get(),
+                'category': category,
                 'title': article.xpath('div/h3[@class="article-title"]/a/text()').get(),
                 'summary': article.xpath('div/div[@class="article-excerpt"]/a/text()').get(),
                 'content': ''.join([td.get_text() for content in job_elementsContent for td in content.find_all("p")]),
