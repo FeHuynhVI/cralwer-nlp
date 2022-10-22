@@ -9,7 +9,6 @@ def get_urls(pages=30):
     """Get urls for dantri categories. Each category may span hundreds of pages.    
     """
     root_urls = [
-        "https://dantri.com.vn/",
         "https://dantri.com.vn/giao-duc-huong-nghiep/khuyen-hoc",
         "https://dantri.com.vn/giao-duc-huong-nghiep/giao-duc-nghe-nghiep"
     ]
