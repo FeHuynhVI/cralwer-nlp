@@ -65,7 +65,6 @@ class DantriSpider(scrapy.Spider):
 
             job_elementsContent = soup.find_all("div", {"class": "singular-content"})
 
-
             if category != None and len(category) > 0:
                 category = category[0].get()
             else:
@@ -75,7 +74,7 @@ class DantriSpider(scrapy.Spider):
                 else:
                     category = category[0].get() 
 
-            if job_elementsTime.has_attr("datetime"):
+            if job_elementsTime != None and job_elementsTime.has_attr("datetime"):
                 time = job_elementsTime.attrs["datetime"]
 
             yield {
