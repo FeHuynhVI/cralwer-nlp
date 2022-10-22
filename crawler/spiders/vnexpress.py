@@ -59,6 +59,10 @@ class VnexpressSpider(scrapy.Spider):
 
             job_elementsTime = soup.find("span", {"class": "date"})
 
+            job_elementsComment= soup.find_all("div", {"class": "content-comment"})
+
+            listComment = [td.get_text() for content in job_elementsComment for td in content.find_all("p", class_="full_content")]
+
             if job_elementsTime.has_attr("datetime"):
                 time = job_elementsTime.attrs["datetime"]
 
@@ -68,6 +72,7 @@ class VnexpressSpider(scrapy.Spider):
                 'category': category,
                 'title': article.xpath('div/a/@title').get(),
                 'summary': article.xpath('p/a/text()').get(),
-                'content': ''.join([td.get_text() for content in job_elementsContent for td in content.find_all("p", class_="Normal")])
+                'content': ''.join([td.get_text() for content in job_elementsContent for td in content.find_all("p", class_="Normal")]),
+                'comment': listComment
             }
 
