@@ -68,7 +68,7 @@ class VnexpressSpider(scrapy.Spider):
 
             yield {
                 'time': time,
-                'url': urlCrawl,
+                'url': getUrl,
                 'category': category,
                 'title': article.xpath('div/a/@title').get(),
                 'summary': article.xpath('p/a/text()').get(),
