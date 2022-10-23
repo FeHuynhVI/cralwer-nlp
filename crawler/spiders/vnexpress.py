@@ -63,7 +63,7 @@ class VnexpressSpider(scrapy.Spider):
 
             listComment = [td.get_text() for content in job_elementsComment for td in content.find_all("p", class_="full_content")]
 
-            if job_elementsTime != None and len(job_elementsTime) > 9:
+            if job_elementsTime != None and len(job_elementsTime) > 0:
                 time = job_elementsTime[0].get_text()
 
             yield {
