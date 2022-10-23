@@ -57,14 +57,16 @@ class VnexpressSpider(scrapy.Spider):
 
             job_elementsContent = soup.find_all("article")
 
-            job_elementsTime = soup.find_all("span", {"class": "time-now"})
+            job_elementsTime = soup.find_all("div", {"class": "header-content"})
 
             job_elementsComment= soup.find_all("div", {"class": "content-comment"})
 
             listComment = [td.get_text() for content in job_elementsComment for td in content.find_all("p", class_="full_content")]
 
             if job_elementsTime != None and len(job_elementsTime) > 0:
-                time = job_elementsTime[0].get_text()
+                for content in job_elementsTime:
+                    for td in content.find_all("span", class_="date"),
+                        time = td.get_text()
 
             yield {
                 'time': time,
