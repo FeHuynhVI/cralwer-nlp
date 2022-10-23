@@ -65,7 +65,7 @@ class VnexpressSpider(scrapy.Spider):
 
             if job_elementsTime != None and len(job_elementsTime) > 0:
                 for content in job_elementsTime:
-                    for td in content.find_all("span", class_="date"),
+                    for td in content.find_all("span", class_="date"):
                         time = td.get_text()
 
             yield {
