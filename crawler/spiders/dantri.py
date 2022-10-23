@@ -10,11 +10,11 @@ def get_urls(pages=30):
     """
     root_urls = [
         "https://dantri.com.vn/giao-duc-huong-nghiep/du-hoc",
-        "https://dantri.com.vn/giao-duc-huong-nghiep/tuyen-sinh",
-        "https://dantri.com.vn/giao-duc-huong-nghiep/khuyen-hoc",
-        "https://dantri.com.vn/giao-duc-huong-nghiep/guong-sang",
-        "https://dantri.com.vn/giao-duc-huong-nghiep/goc-phu-huynh",
-        "https://dantri.com.vn/giao-duc-huong-nghiep/giao-duc-nghe-nghiep"
+        # "https://dantri.com.vn/giao-duc-huong-nghiep/tuyen-sinh",
+        # "https://dantri.com.vn/giao-duc-huong-nghiep/khuyen-hoc",
+        # "https://dantri.com.vn/giao-duc-huong-nghiep/guong-sang",
+        # "https://dantri.com.vn/giao-duc-huong-nghiep/goc-phu-huynh",
+        # "https://dantri.com.vn/giao-duc-huong-nghiep/giao-duc-nghe-nghiep"
     ]
 
     urls = []

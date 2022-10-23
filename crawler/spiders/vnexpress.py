@@ -10,11 +10,11 @@ def get_urls(pages=30):
     """
     root_urls = [
         "https://vnexpress.net/giao-duc/du-hoc",
-        "https://vnexpress.net/giao-duc/tuyen-sinh",
-        "https://vnexpress.net/giao-duc/tin-tuc",
-        "https://vnexpress.net/giao-duc/chan-dung",
-        "https://vnexpress.net/giao-duc/giao-duc-40",
-        "https://vnexpress.net/giao-duc/hoc-tieng-anh",
+        # "https://vnexpress.net/giao-duc/tuyen-sinh",
+        # "https://vnexpress.net/giao-duc/tin-tuc",
+        # "https://vnexpress.net/giao-duc/chan-dung",
+        # "https://vnexpress.net/giao-duc/giao-duc-40",
+        # "https://vnexpress.net/giao-duc/hoc-tieng-anh",
     ]
 
     urls = []
