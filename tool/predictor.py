@@ -28,7 +28,7 @@ class Predictor(object):
             return torch.LongTensor(text)
         elif isinstance(text, list):
             src_text = []
-            MAXLEN = max(len(txt) for txt in text) + 2
+            MAXLEN = max(len(txt) for txt in text,  default=0) + 2
 
             for txt in text:
                 txt = self.vocab.encode(txt)
