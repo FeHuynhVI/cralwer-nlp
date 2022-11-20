@@ -1,69 +1,30 @@
-# web_scraping
+# VietnameseOcrCorrection
+Tutorial: [Thử áp dụng mô hình dịch máy vào bài toán tự động sửa lỗi Tiếng Việt](https://viblo.asia/p/thu-ap-dung-mo-hinh-dich-may-vao-bai-toan-tu-dong-sua-loi-tieng-viet-maGK7vJB5j2)
 
-This project contains the code for scraping vnexpress.net, the most popular Vietnamese website.
-
-## Usage
-
-After installing `scrapy` (see the Dependencies section), simply run:
-
+## 1. Download the repository
 ```
-scrapy crawl vnexpress -o data/path-to-output.json 
-```
-to crawl the web pages.
-
-The extracted data will be stored in the specified file path in a json format.
-
-## Extracted Data
-
-You can see the data scraped in `data/vnexpress.json`. This is the result of running with the default setting and the categories specified in `crawler/vnexpress.py`.
-
-For each article, four fields were extracted:
-
-- `category`: the url which contains the category of the article, e.g. "https://vnexpress.net/y-kien/doi-song-p10". You should ignore the page number (`p10`) because as explaind below, the URL is not permanent and its content will change as vnexpress add more articles.
-- `url`: the url to the full article, you can visit this url to read or crawl the full content
-- `title`: the title of the article.
-- `text`: a short exceprt of the article.
-
-Note that some of the fields may be empty.
-
-An example:
-
-    "category": "https://vnexpress.net/y-kien/doi-song",
-    "url": null,
-    "title": null,
-    "text": "Đã có nhà để ở và cho thuê, một mảnh đất, ôtô riêng, cùng hai tỷ tiết kiệm, tôi vẫn phân vân từ bỏ công việc áp lực hiện tại."
-
-This can be read as a pandas DataFrame using:
-
-```python
-import pandas as pd
-df = pd.read_json('data/vnexpress.json')
-# if you want to keep articles with non-empty texts only
-df = df[~df['text'].isna()]
+git clone https://github.com/buiquangmanhhp1999/VietnameseOcrCorrection.git
 ```
 
-### Statistics
+## 2. Install environment
+```
+pip install -r requirements.txt
+```
 
-- 17 categories
-- 18,452 articles
-- 611,733 tokens (single words)
-
-## Customizations
-
-Vnexpress organizes its contents into categories. Each category may have thousands of articles, organised into numbered pages. For example, for one of the travel categories, the first page is "https://vnexpress.net/du-lich/diem-den". Subsequent pages can be formed by adding a suffix of 'p' with the page number, such as "https://vnexpress.net/du-lich/diem-den-p100". Since the articles within a page are generated dynamically, you will likely get a different result when crawling the same page url (after certain period of time depending on the frequency of the update, which seems daily at least).
-
-### Categories
-
-The categories can be customized by editting the `crawler/vnexpress.py` file. The categories that are currently there are for my personal purposes, you can replace with your own categories by visiting vnexpress.net.
-
-### Pages to crawl for each category
-
-You can choose how many pages to crawl for each category by changing the `pages` parameter in the `get_urls()` method in the same file. The default is `30` pages. Each page contains 30 articles.
-
-## Dependencies
-
-`scrapy` is the only dependency in this project. [The official documentation page](https://scrapy.org/) recommends installing the package using `conda` or `miniconda`.
-
-## Scrapy settings
-
-The settings in `spiders/settings.py` works well for me, partly because vnexpress.net did not seem to be very strict against crawling. If they have more restrictions in the future, you may need to use proxies to avoid getting blocked.
+## 3. Run inference jupyter to see results
+Before:
+```
+Trên cơsở kếT quả kiểm tra hiện trạng, Tòa an nhân dân tối cao xẻm xét, lap phương án sắp xếp lại,
+xử lý các cơ sở nhà, đất thuộc phám vi Quản lý, gửi lấy ý kiến của Ủy ban nhân dân cấp tỉnh nơi
+có nhà, đất. Riêng đổi với việc tổ chức kiểm tra hiện trạng, lập phương án, phê duyệt phương án sắp
+xếp lại, xử lý nhà, đất trên địa bàn các thành phố Hà Nội, Hồ Chí Minh, Đà Nẵng, Cần Thơ, Hải Phòng
+do Bộ Tài chính thực hiện theo quy định tại Mục 3, Điều 5 Nghị định số 167/2017/NĐ-CP:
+```
+After:
+```
+Trên cơ sở kết quả kiểm tra hiện trạng, Tòa án nhân dân tối cao xem xét, lập phương án sắp xếp lại,
+xử lý các cơ sở nhà, đất thuộc phạm vi Quản lý, gửi lấy ý kiến của Ủy ban nhân dân cấp tỉnh nơi có nhà,
+đất. Riêng đối với việc tổ chức kiểm tra hiện trạng, lập phương án, phê duyệt phương án sắp xếp lại, xử
+lý nhà, đất trên địa bàn các thành phố Hà Nội, Hồ Chí Minh, Đà Nẵng, Cần Thơ, Hải Phòng do Bộ Tài chính
+thực hiện theo quy định tại Mục 3, Điều 5 Nghị định số 167/2017/NĐ-CP:
+```
